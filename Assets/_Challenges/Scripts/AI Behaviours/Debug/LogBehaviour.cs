@@ -21,7 +21,7 @@ namespace MessyCoderCommunity.AI
         {
             base.Initialize(agent, chalkboard);
 
-            variableRegex = new Regex(@"\{([^}]*)\}");
+            variableRegex = new Regex(@"\{([^}]*)\}", RegexOptions.Compiled);
         }
 
         public override void Tick(Chalkboard chalkboard)
