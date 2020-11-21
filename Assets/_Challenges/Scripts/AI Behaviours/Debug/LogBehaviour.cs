@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace MessyCoderCommunity.AI
@@ -11,15 +12,46 @@ namespace MessyCoderCommunity.AI
     [CreateAssetMenu(fileName = "Log Behaviour", menuName = "Messy AI/Debug/Log")]
     public class LogBehaviour : GenericAiBehaviour<GameObject>
     {
-        [Tooltip("The message to display. This can include variables on the chalkboard using `{VARIABLE_NAME}`.")]
-        public string message = "{agent} says 'Hi'";
+        [SerializeField, Tooltip("The message to display. This can include variables on the chalkboard using `{VARIABLE_NAME}`.")]
+        string message = "{agent} says 'Hi'";
+
+        private Regex variableRegex;
+
+        public override void Initialize(GameObject agent, Chalkboard chalkboard)
+        {
+            base.Initialize(agent, chalkboard);
+
+            variableRegex = new Regex(@"\{([^}]*)\}");
+        }
 
         public override void Tick(Chalkboard chalkboard)
         {
+            string expandedMessage = message;
+            MatchCollection matches = variableRegex.Matches(expandedMessage);
+            for (int i = 0; i < matches.Count; i ++)
+            {
+                string token = matches[i].Groups[0].Value;
+                string variableName = matches[i].Groups[1].Value;
 
-            GameObject agent = chalkboard.GetUnity<GameObject>("agent".GetHashCode());
-            message = message.Replace("{agent}", agent.ToString());
-            Debug.Log(message);
+                UnityEngine.Object unityValue = chalkboard.GetUnity<UnityEngine.Object>(variableName.GetHashCode());
+                if (unityValue != null)
+                {
+                    expandedMessage = expandedMessage.Replace(token, unityValue.ToString());
+                } else
+                {
+                    System.Object systemValue = chalkboard.GetSystem<System.Object>(variableName.GetHashCode());
+                    if (systemValue != null)
+                    {
+                        expandedMessage = expandedMessage.Replace(token, systemValue.ToString());
+                    } else
+                    {
+                        expandedMessage = expandedMessage.Replace(token, "[Missing variable " + token + "]");
+                    }
+                }
+                
+            }
+
+            Debug.Log(expandedMessage);
         }
     }
 }
