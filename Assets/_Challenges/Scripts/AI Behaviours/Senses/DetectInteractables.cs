@@ -65,7 +65,10 @@ namespace MessyCoderCommunity.AI.Senses
             }
             else
             {
-                Debug.Log(t.name + " detected " + chalkboard.GetSystem<List<Interactable>>(interactablesListHash).Count + " Colliders");
+                if (noInteractablesBehaviour)
+                {
+                    interactablesBehaviour.Tick(chalkboard);
+                }
             }
         }
     }

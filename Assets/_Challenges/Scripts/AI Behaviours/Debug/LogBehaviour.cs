@@ -11,13 +11,15 @@ namespace MessyCoderCommunity.AI
     [CreateAssetMenu(fileName = "Log Behaviour", menuName = "Messy AI/Debug/Log")]
     public class LogBehaviour : GenericAiBehaviour<GameObject>
     {
-        [Tooltip("The message to display.")]
-        public string message;
+        [Tooltip("The message to display. This can include variables on the chalkboard using `{VARIABLE_NAME}`.")]
+        public string message = "{agent} says 'Hi'";
 
         public override void Tick(Chalkboard chalkboard)
         {
+
             GameObject agent = chalkboard.GetUnity<GameObject>("agent".GetHashCode());
-            Debug.Log(agent.name + " says " + message);
+            message = message.Replace("{agent}", agent.ToString());
+            Debug.Log(message);
         }
     }
 }
