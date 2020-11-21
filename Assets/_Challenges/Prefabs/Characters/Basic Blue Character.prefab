@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 2641790126534117023}
   - component: {fileID: 4651090212503807886}
   - component: {fileID: 3919287527268594896}
+  - component: {fileID: 8671905785009503561}
+  - component: {fileID: 7634098995905233197}
   m_Layer: 0
-  m_Name: Blue Character
+  m_Name: Basic Blue Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,3 +96,29 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8671905785009503561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722261560986105312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178a87e1df7a2d8419d83fc99632ef27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7634098995905233197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722261560986105312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bcc301286cd1e1479f51743dbd82d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiBehaviour: {fileID: 0}
+  tickFrequency: 0.25
