@@ -11,6 +11,21 @@ namespace MessyCoderCommunity.AI
         List<ChalkboardUnityDatum> unityEntries = new List<ChalkboardUnityDatum>();
         [SerializeField]
         List<ChalkboardSystemDatum> systemEntries = new List<ChalkboardSystemDatum>();
+        [SerializeField]
+        List<ChalkboardVector3Datum> vector3Entries = new List<ChalkboardVector3Datum>();
+
+        public Vector3 GetVector3(int hash) 
+        {
+            for (int i = 0; i < vector3Entries.Count; i++)
+            {
+                if (vector3Entries[i].hash == hash)
+                {
+                    return vector3Entries[i].value;
+                }
+            }
+
+            return default(Vector3);
+        }
 
         /// <summary>
         /// Get a value from the chalkboard that is deriivable from UnityEngine.Object 
@@ -55,14 +70,28 @@ namespace MessyCoderCommunity.AI
             return default(T);
         }
 
+        internal void Add(string name, Vector3 value)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                vector3Entries.Add(new ChalkboardVector3Datum(name, value));
+            }
+        }
+
         internal void Add(string name, UnityEngine.Object value)
         {
-            unityEntries.Add(new ChalkboardUnityDatum(name, value));
+            if (!string.IsNullOrEmpty(name))
+            {
+                unityEntries.Add(new ChalkboardUnityDatum(name, value));
+            }
         }
 
         internal void Add(string name, System.Object value)
         {
-            systemEntries.Add(new ChalkboardSystemDatum(name, value));
+            if (!string.IsNullOrEmpty(name))
+            {
+                systemEntries.Add(new ChalkboardSystemDatum(name, value));
+            }
         }
     }
 }

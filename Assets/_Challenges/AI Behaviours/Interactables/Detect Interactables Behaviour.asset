@@ -18,6 +18,7 @@ MonoBehaviour:
     m_Bits: 1
   noInteractablesBehaviour: {fileID: 11400000, guid: edef5a2b8e399f44195a9095767d2540,
     type: 2}
-  interactablesBehaviour: {fileID: 11400000, guid: f984ef11bc7671443b3b7a9ed856d859,
+  interactablesBehaviour: {fileID: 11400000, guid: bbd11e73874a0ca469a24bc951250f75,
     type: 2}
   interactablesListName: interactables
+  chosenInteractablePositionName: targetPosition

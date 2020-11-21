@@ -106,3 +106,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e77743c204aec84cbda9310aa332b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionPosition: {x: 1, y: 0, z: 1}
