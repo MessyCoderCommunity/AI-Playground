@@ -34,13 +34,13 @@ namespace MessyCoderCommunity.AI
                 int index = matches[i].Groups[0].Index;
                 string variableName = matches[i].Groups[1].Value;
 
-                UnityEngine.Object unityValue = chalkboard.GetUnity<UnityEngine.Object>(variableName.GetHashCode());
+                UnityEngine.Object unityValue = chalkboard.GetUnity<UnityEngine.Object>(variableName);
                 if (unityValue != null)
                 {
                     expandedMessage = expandedMessage.Remove(index, token.Length).Insert(index, unityValue.ToString());
                 } else
                 {
-                    System.Object systemValue = chalkboard.GetSystem<System.Object>(variableName.GetHashCode());
+                    System.Object systemValue = chalkboard.GetSystem<System.Object>(variableName);
                     if (systemValue != null)
                     {
                         expandedMessage = expandedMessage.Remove(index, token.Length).Insert(index, systemValue.ToString());
