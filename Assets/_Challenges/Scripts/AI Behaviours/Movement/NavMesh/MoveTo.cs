@@ -16,6 +16,8 @@ namespace MessyCoderCommunity.AI.NavMeshMovement
 
         int targetPositionVariableHash;
 
+        Vector3 currentTargetPosition = Vector3.zero;
+
         public override void Initialize(GameObject agent, Chalkboard chalkboard)
         {
             base.Initialize(agent, chalkboard);
@@ -28,6 +30,14 @@ namespace MessyCoderCommunity.AI.NavMeshMovement
             base.Tick(chalkboard);
 
             Vector3 position = chalkboard.GetVector3(targetPositionVariableHash);
+
+            if (position == currentTargetPosition)
+            {
+                return;
+            }
+
+            currentTargetPosition = position;
+
             NavMeshHit hit;
             if (NavMesh.SamplePosition(position, out hit, 1.0f, NavMesh.AllAreas))
             {

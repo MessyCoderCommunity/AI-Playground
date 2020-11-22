@@ -249,6 +249,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5650230236801888712, guid: d0fd62f8266a34b4385e5eb9bed6c6bb,
+        type: 3}
+      propertyPath: aiBehaviourTemplate
+      value: 
+      objectReference: {fileID: 11400000, guid: edef5a2b8e399f44195a9095767d2540,
+        type: 2}
     - target: {fileID: 6815019691887068421, guid: d0fd62f8266a34b4385e5eb9bed6c6bb,
         type: 3}
       propertyPath: m_Name
@@ -442,5 +448,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Red Character - NavMesh '
       objectReference: {fileID: 0}
+    - target: {fileID: 8227334393715099839, guid: 8720d77c26fb395479fcad51fc8ee465,
+        type: 3}
+      propertyPath: aiBehaviourTemplate
+      value: 
+      objectReference: {fileID: 11400000, guid: edef5a2b8e399f44195a9095767d2540,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8720d77c26fb395479fcad51fc8ee465, type: 3}
