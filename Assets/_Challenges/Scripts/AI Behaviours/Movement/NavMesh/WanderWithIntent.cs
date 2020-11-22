@@ -35,7 +35,7 @@ namespace MessyCoderCommunity.AI.NavMeshMovement
         private float sqrMagnitudeRange;
 
 
-        public override void Initialize(GameObject agent, Chalkboard chalkboard)
+        public override void Initialize(GameObject agent, IChalkboard chalkboard)
         {
             base.Initialize(agent, chalkboard);
 
@@ -43,12 +43,12 @@ namespace MessyCoderCommunity.AI.NavMeshMovement
             sqrMagnitudeRange = maxRange * maxRange;
         }
 
-        public override void Tick(Chalkboard chalkboard)
+        public override void Tick(IChalkboard chalkboard)
         {
-            NavMeshAgent agent = chalkboard.GetUnity<NavMeshAgent>("agent".GetHashCode());
+            NavMeshAgent agent = chalkboard.GetUnity<NavMeshAgent>("agent");
             if (agent == null)
             {
-                agent = chalkboard.GetUnity<NavMeshAgent>("NavMeshAgent".GetHashCode());
+                agent = chalkboard.GetUnity<NavMeshAgent>("NavMeshAgent");
             }
             
             agent.SetDestination(GetValidWanderPosition(agent.transform, 0));

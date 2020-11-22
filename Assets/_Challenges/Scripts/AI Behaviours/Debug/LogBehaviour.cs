@@ -17,14 +17,14 @@ namespace MessyCoderCommunity.AI
 
         private Regex variableRegex;
 
-        public override void Initialize(GameObject agent, Chalkboard chalkboard)
+        public override void Initialize(GameObject agent, IChalkboard chalkboard)
         {
             base.Initialize(agent, chalkboard);
 
             variableRegex = new Regex(@"\{([^}]*)\}", RegexOptions.Compiled);
         }
 
-        public override void Tick(Chalkboard chalkboard)
+        public override void Tick(IChalkboard chalkboard)
         {
             string expandedMessage = message;
             MatchCollection matches = variableRegex.Matches(expandedMessage);

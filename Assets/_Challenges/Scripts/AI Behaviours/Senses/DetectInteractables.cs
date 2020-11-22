@@ -27,20 +27,19 @@ namespace MessyCoderCommunity.AI.Senses
             "If null the position will not be stored.")]
         private string chosenInteractablePositionName;
 
-
-        public override void Initialize(GameObject agent, Chalkboard chalkboard)
+        public override void Initialize(GameObject agent, IChalkboard chalkboard)
         {
             base.Initialize(agent, chalkboard);
-            
+
             chalkboard.Add("NavMeshAgent", agent.GetComponent<NavMeshAgent>());
             noInteractablesBehaviour.Initialize(agent.gameObject, chalkboard);
 
             interactablesBehaviour.Initialize(agent.gameObject, chalkboard);
         }
-        public override void Tick(Chalkboard chalkboard)
+        public override void Tick(IChalkboard chalkboard)
         {
             base.Tick(chalkboard);
-            Transform t = chalkboard.GetUnity<Transform>("agent".GetHashCode());
+            Transform t = chalkboard.GetUnity<Transform>("agent");
 
             List<Interactable> detectedInteractables = new List<Interactable>();
             Collider[] colliders = Physics.OverlapSphere(t.position, radius, layerMask);
@@ -73,6 +72,7 @@ namespace MessyCoderCommunity.AI.Senses
                 {
                     interactablesBehaviour.Tick(chalkboard);
                 }
+                Debug.Log(t.name + " detected " + chalkboard.GetSystem<List<Interactable>>(interactablesListName).Count + " Colliders");
             }
         }
     }

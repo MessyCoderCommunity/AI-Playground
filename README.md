@@ -78,9 +78,20 @@ prefabs. These include the `AiBehaviourRunner` and `Chalkboard` components. Crea
 
 # Integration with a Full AI Frameowrk
 
-To be honest... we haven't done this yet... let's hope it works!
-
 At the very least you will need to create a bridge between the `Chalkboard` in this project and the 
-equivalent in your chosen frameowrk. 
+equivalent in your chosen frameowrk. The subsections below outline integrations and their current
+status.
+
+When developing integrations please ensure you wrap your integration code with an approprate
+`#if [DEFINE_SYMBOL] ... #endif` statement since we want everyone to be able to compile the code
+even if they do not have the assets you use. If your chosen asset does not provide an appropriate
+define symbol please document the one you are using below.
+
+## Node Canvas
+
+Node Canvas is an excellent behaviour tree asset. 
+
+Define symbol: `NODE_CANVAS_PRESENT` (must be manually set, Node Canvas does not provide this).
+
 
 

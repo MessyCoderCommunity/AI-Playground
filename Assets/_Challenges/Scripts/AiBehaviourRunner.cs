@@ -31,7 +31,7 @@ namespace MessyCoderCommunity.AI
         private void Awake()
         {
             chalkboard = GetComponent<Chalkboard>();
-            Debug.Assert(chalkboard != null, "Cannot find a chalkboard fpr " + gameObject.name);
+            Debug.Assert(chalkboard != null, "Cannot find a chalkboard for " + gameObject.name);
 
             Debug.Assert(aiBehaviourTemplate != null, "You must provide a behaviour for the AiBehaviourRunner to run in " + gameObject.name);
             aiBehaviour = ScriptableObject.Instantiate<AiBehaviour>(aiBehaviourTemplate);
@@ -45,8 +45,6 @@ namespace MessyCoderCommunity.AI
                 Debug.Assert(m_Agent != null, "Cannot find " + aiBehaviour.AgentType + " in " + gameObject.name + " or its children");
             }
             aiBehaviour.Initialize(gameObject, chalkboard);
-
-            chalkboard.Add("agent", m_Agent);
         }
 
         // Update is called once per frame
