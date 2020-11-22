@@ -93,6 +93,7 @@ $RECYCLE.BIN/
 # Assets
 Assets/*
 !Assets/_Challenges
+!Assets/_NodeCanvasIntegration
 !Assets/_Terrain*
 Bin
 
