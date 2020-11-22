@@ -23,9 +23,9 @@ namespace MessyCoderCommunity.AI.Senses
         [Header("Ouputs")]
         [SerializeField, Tooltip("The name of the chalkboard variable in which to store the list of interactables detected.")]
         string interactablesListName = "interactables";
-        [SerializeField, Tooltip("The name of the chalkboard variable in which to store the position of the chosen interactable. " +
-            "If null the position will not be stored.")]
-        private string chosenInteractablePositionName;
+        [SerializeField, Tooltip("The name of the chalkboard variable in which to store the chosen interactable for further actions. " +
+            "If null no interactable will be stored.")]
+        private string chosenInteractable = "interactable";
 
 
         public override void Initialize(GameObject agent, Chalkboard chalkboard)
@@ -37,6 +37,7 @@ namespace MessyCoderCommunity.AI.Senses
 
             interactablesBehaviour.Initialize(agent.gameObject, chalkboard);
         }
+
         public override void Tick(Chalkboard chalkboard)
         {
             base.Tick(chalkboard);
@@ -67,7 +68,7 @@ namespace MessyCoderCommunity.AI.Senses
             else
             {
                 Vector3 pos = detectedInteractables[0].GetInteractionPosition();
-                chalkboard.Add(chosenInteractablePositionName, pos);
+                chalkboard.Add(chosenInteractable, detectedInteractables[0]);
 
                 if (noInteractablesBehaviour)
                 {
