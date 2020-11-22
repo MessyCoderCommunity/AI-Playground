@@ -22,6 +22,13 @@ namespace MessyCoderCommunity.AI
         /// <returns></returns>
         T GetUnity<T>(string name) where T : UnityEngine.Object;
 
+        /// <summary>
+        /// Get a Vector3 from the chalkboard that is deriivable from UnityEngine.Object 
+        /// </summary>
+        /// <param name="name">The name of the variable</param>
+        /// <returns></returns>
+        Vector3 GetVector3(string name);
+
         void Add(string name, UnityEngine.Object value);
         void Add(string name, object value);
 
@@ -42,8 +49,6 @@ namespace MessyCoderCommunity.AI
         /// <returns></returns>
         [Obsolete("Node Canvas does not support getting variables by hash so we will have to use variable names")]
         T GetUnity<T>(int hash) where T : UnityEngine.Object;
-
-
     }
 }
 #endif

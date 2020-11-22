@@ -13,4 +13,3 @@ MonoBehaviour:
   m_Name: Log AI Behaviour
   m_EditorClassIdentifier: 
   message: '{agent} says "Hi!"'
->>>>>>> setup the log behaviour to use variables so we can test the chalkboard

@@ -14,18 +14,7 @@ namespace MessyCoderCommunity.AI
         [SerializeField]
         List<ChalkboardVector3Datum> vector3Entries = new List<ChalkboardVector3Datum>();
 
-        public Vector3 GetVector3(int hash) 
-        {
-            for (int i = 0; i < vector3Entries.Count; i++)
-            {
-                if (vector3Entries[i].hash == hash)
-                {
-                    return vector3Entries[i].value;
-                }
-            }
 
-            return default(Vector3);
-        }
 
         /// <summary>
         /// Get a value from the chalkboard that is deriivable from System.Object 
@@ -70,6 +59,19 @@ namespace MessyCoderCommunity.AI
             return default(T);
         }
 
+        public Vector3 GetVector3(string name)
+        {
+            for (int i = 0; i < vector3Entries.Count; i++)
+            {
+                if (vector3Entries[i].name == name)
+                {
+                    return vector3Entries[i].value;
+                }
+            }
+
+            return default(Vector3);
+        }
+
         public T GetUnity<T>(int hash) where T : UnityEngine.Object
         {
             for (int i = 0; i < unityEntries.Count; i++)
@@ -99,6 +101,20 @@ namespace MessyCoderCommunity.AI
             }
 
             return default(T);
+        }
+
+        [Obsolete("Node Canvas does not support getting variables by hash, only by name")]
+        public Vector3 GetVector3(int hash)
+        {
+            for (int i = 0; i < vector3Entries.Count; i++)
+            {
+                if (vector3Entries[i].hash == hash)
+                {
+                    return vector3Entries[i].value;
+                }
+            }
+
+            return default(Vector3);
         }
 
         public void Add(string name, UnityEngine.Object value)

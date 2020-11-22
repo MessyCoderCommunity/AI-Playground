@@ -38,6 +38,11 @@ namespace MessyCoderCommunity.AI.NodeCanvasIntegration
             return board.GetVariableValue<T>(name);
         }
 
+        public Vector3 GetVector3(string name)
+        {
+            return board.GetVariableValue<Vector3>(name);
+        }
+
         public T GetSystem<T>(int hash)
         {
             throw new System.NotImplementedException("Node Canvas does not support getting variables by hash");
