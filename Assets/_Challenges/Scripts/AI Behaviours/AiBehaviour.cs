@@ -7,6 +7,8 @@ namespace MessyCoderCommunity.AI
 {
     public class AiBehaviour : ScriptableObject
     {
+        private GameObject agent;
+
         /// <summary>
         /// Get the Type of the agent this refers to. For base `AiBehaviours` this
         /// is always `GameObject` but implementations of this class can be generic,
@@ -26,7 +28,7 @@ namespace MessyCoderCommunity.AI
         /// <param name="chalkboard">The chalkboard for sharing variables between behaviours</param>
         public virtual void Initialize(GameObject agent, IChalkboard chalkboard)
         {
-            chalkboard.Add("agent", agent);
+            this.agent = agent;
         }
 
         /// <summary>

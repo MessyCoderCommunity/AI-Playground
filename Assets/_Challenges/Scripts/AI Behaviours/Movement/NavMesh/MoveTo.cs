@@ -14,19 +14,22 @@ namespace MessyCoderCommunity.AI.NavMeshMovement
         [SerializeField, Tooltip("The name of a Vector3 variable that holds the position to be moved to.")]
         string targetPositionVariable = "targetPosition";
 
-        int targetPositionVariableHash;
         Vector3 currentTargetPosition = Vector3.zero;
+        NavMeshAgent navMeshAgent = null;
 
         public override void Initialize(GameObject agent, IChalkboard chalkboard)
         {
             base.Initialize(agent, chalkboard);
+
+            navMeshAgent = agent.GetComponent<NavMeshAgent>();
+            Debug.Assert(navMeshAgent != null, "MoveTo behaviour requires a NavMeshAgent component on the agent.");
         }
 
         public override void Tick(IChalkboard chalkboard)
         {
             base.Tick(chalkboard);
 
-            Vector3 position = chalkboard.GetVector3(targetPositionVariableHash);
+            Vector3 position = chalkboard.GetSystem<Vector3>(targetPositionVariable);
 
             if (position == currentTargetPosition)
             {
@@ -40,10 +43,8 @@ namespace MessyCoderCommunity.AI.NavMeshMovement
                 position = hit.position;
             }
 
-            NavMeshAgent agent = chalkboard.GetUnity<NavMeshAgent>("agent");
-
-            agent.SetDestination(position);
-            agent.isStopped = false;
+            navMeshAgent.SetDestination(position);
+            navMeshAgent.isStopped = false;
         }
     }
 }

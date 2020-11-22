@@ -18,12 +18,12 @@ namespace MessyCoderCommunity.AI.NodeCanvasIntegration
             this.board = board;
         }
         
-        public void Add(string name, Object value)
+        public void AddOrUpdate(string name, Object value)
         {
             board.AddVariable(name, value);
         }
 
-        public void Add(string name, object value)
+        public void AddOrUpdate(string name, object value)
         {
             board.AddVariable(name, value);
         }

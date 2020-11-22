@@ -5,131 +5,78 @@ using System;
 
 namespace MessyCoderCommunity.AI
 {
+    /// <summary>
+    /// A naive Chalkboard implementation for use in the test environment.
+    /// This is not a robust or performant implementation do not use in production.
+    /// </summary>
     public class Chalkboard : MonoBehaviour, IChalkboard
     {
+        // REFACTOR: Now that we are storing in a Dictionary and we cannot use hash keys is there any value in using the Datum structs?
         [SerializeField]
-        List<ChalkboardUnityDatum> unityEntries = new List<ChalkboardUnityDatum>();
+        Dictionary<string, ChalkboardUnityDatum> unityEntries = new Dictionary<string, ChalkboardUnityDatum>();
         [SerializeField]
-        List<ChalkboardSystemDatum> systemEntries = new List<ChalkboardSystemDatum>();
+        Dictionary<string, ChalkboardSystemDatum> systemEntries = new Dictionary<string, ChalkboardSystemDatum>();
         [SerializeField]
-        List<ChalkboardVector3Datum> vector3Entries = new List<ChalkboardVector3Datum>();
-
-
-
+        Dictionary<string, ChalkboardVector3Datum> vector3Entries = new Dictionary<string, ChalkboardVector3Datum>();
+        
         /// <summary>
         /// Get a value from the chalkboard that is deriivable from System.Object 
         /// </summary>
         /// <typeparam name="T">The type of the object to retrieve</typeparam>
-        /// <param name="hash">The hash of the name of the variable</param>
+        /// <param name="name">The name of the variable</param>
         /// <returns>The value of the variable</returns>
         public T GetSystem<T>(string name)
         {
-            for (int i = 0; i < systemEntries.Count; i++)
+            ChalkboardSystemDatum datum;
+            if (systemEntries.TryGetValue(name, out datum))
             {
-                if (systemEntries[i].name == name)
-                {
-                    return (T)(object)systemEntries[i].value;
-                }
+                return (T)(object)datum.value;
+            } else
+            {
+                return default(T);
             }
-
-            return default(T);
         }
 
         /// <summary>
         /// Get a value from the chalkboard that is deriivable from UnityEngine.Object 
         /// </summary>
         /// <typeparam name="T">The type of the object to retrieve (must be derived from UnityEngine.Object)</typeparam>
-        /// <param name="hash">The hash of the name of the variable</param>
+        /// <param name="name">The name of the variable</param>
         /// <returns>The value of the variable</returns>
         public T GetUnity<T>(string name) where T : UnityEngine.Object
         {
-            for (int i = 0; i < unityEntries.Count; i++)
+            ChalkboardUnityDatum datum;
+            if (unityEntries.TryGetValue(name, out datum))
             {
-                if (unityEntries[i].name == name)
-                {
-                    if (typeof(UnityEngine.Component).IsAssignableFrom(typeof(T)))
-                    {
-                        return ((UnityEngine.Component)unityEntries[i].value).GetComponent<T>();
-                    }
-
-                    return (T)unityEntries[i].value;
-                }
+                return (T)(object)datum.value;
             }
-
-            return default(T);
+            else
+            {
+                return default(T);
+            }
         }
 
-        public Vector3 GetVector3(string name)
-        {
-            for (int i = 0; i < vector3Entries.Count; i++)
-            {
-                if (vector3Entries[i].name == name)
-                {
-                    return vector3Entries[i].value;
-                }
-            }
-
-            return default(Vector3);
-        }
-
-        public T GetUnity<T>(int hash) where T : UnityEngine.Object
-        {
-            for (int i = 0; i < unityEntries.Count; i++)
-            {
-                if (unityEntries[i].hash == hash)
-                {
-                    if (typeof(UnityEngine.Component).IsAssignableFrom(typeof(T)))
-                    {
-                        return ((UnityEngine.Component)unityEntries[i].value).GetComponent<T>();
-                    }
-
-                    return (T)unityEntries[i].value;
-                }
-            }
-
-            return default(T);
-        }
-
-        public T GetSystem<T>(int hash)
-        {
-            for (int i = 0; i < systemEntries.Count; i++)
-            {
-                if (systemEntries[i].hash == hash)
-                {
-                    return (T)(object)systemEntries[i].value;
-                }
-            }
-
-            return default(T);
-        }
-
-        [Obsolete("Node Canvas does not support getting variables by hash, only by name")]
-        public Vector3 GetVector3(int hash)
-        {
-            for (int i = 0; i < vector3Entries.Count; i++)
-            {
-                if (vector3Entries[i].hash == hash)
-                {
-                    return vector3Entries[i].value;
-                }
-            }
-
-            return default(Vector3);
-        }
-
-        public void Add(string name, UnityEngine.Object value)
+        public void AddOrUpdate(string name, UnityEngine.Object value)
         {
             if (!string.IsNullOrEmpty(name))
             {
-                unityEntries.Add(new ChalkboardUnityDatum(name, value));
+                if (unityEntries.ContainsKey(name))
+                {
+                    unityEntries.Remove(name);
+                }
+                unityEntries.Add(name, new ChalkboardUnityDatum(name, value));
             }
         }
 
-        public void Add(string name, System.Object value)
+        public void AddOrUpdate(string name, System.Object value)
         {
             if (!string.IsNullOrEmpty(name))
             {
-                systemEntries.Add(new ChalkboardSystemDatum(name, value));
+                if (systemEntries.ContainsKey(name))
+                {
+                    systemEntries.Remove(name);
+                }
+                systemEntries.Add(name, new ChalkboardSystemDatum(name, value));
             }
         }
     }

@@ -25,27 +25,28 @@ namespace MessyCoderCommunity.AI.Senses
         string interactablesListName = "interactables";
         [SerializeField, Tooltip("The name of the chalkboard variable in which to store the position of the chosen interactable. " +
             "If null the position will not be stored.")]
-        private string chosenInteractablePositionName;
+        private string chosenInteractablePositionName = "";
+
+        private Transform transform = null;
 
         public override void Initialize(GameObject agent, IChalkboard chalkboard)
         {
             base.Initialize(agent, chalkboard);
 
-            chalkboard.Add("NavMeshAgent", agent.GetComponent<NavMeshAgent>());
-            noInteractablesBehaviour.Initialize(agent.gameObject, chalkboard);
+            noInteractablesBehaviour.Initialize(agent, chalkboard);
+            interactablesBehaviour.Initialize(agent, chalkboard);
 
-            interactablesBehaviour.Initialize(agent.gameObject, chalkboard);
+            transform = agent.transform;
         }
         public override void Tick(IChalkboard chalkboard)
         {
             base.Tick(chalkboard);
-            Transform t = chalkboard.GetUnity<Transform>("agent");
 
             List<Interactable> detectedInteractables = new List<Interactable>();
-            Collider[] colliders = Physics.OverlapSphere(t.position, radius, layerMask);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, radius, layerMask);
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i].gameObject != t.gameObject)
+                if (colliders[i].gameObject != transform.gameObject)
                 {
                    Interactable interactable = colliders[i].GetComponentInParent<Interactable>();
                     if (interactable)
@@ -54,7 +55,7 @@ namespace MessyCoderCommunity.AI.Senses
                     }
                 }
             }
-            chalkboard.Add(interactablesListName, detectedInteractables);
+            chalkboard.AddOrUpdate(interactablesListName, detectedInteractables);
 
             if (detectedInteractables.Count == 0)
             {
@@ -66,13 +67,13 @@ namespace MessyCoderCommunity.AI.Senses
             else
             {
                 Vector3 pos = detectedInteractables[0].GetInteractionPosition();
-                chalkboard.Add(chosenInteractablePositionName, pos);
+                chalkboard.AddOrUpdate(chosenInteractablePositionName, pos);
 
-                if (noInteractablesBehaviour)
+                if (interactablesBehaviour)
                 {
                     interactablesBehaviour.Tick(chalkboard);
                 }
-                Debug.Log(t.name + " detected " + chalkboard.GetSystem<List<Interactable>>(interactablesListName).Count + " Colliders");
+                Debug.Log(transform.name + " detected " + chalkboard.GetSystem<List<Interactable>>(interactablesListName).Count + " Colliders");
             }
         }
     }
