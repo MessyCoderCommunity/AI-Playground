@@ -82,6 +82,10 @@ At the very least you will need to create a bridge between the `Chalkboard` in t
 equivalent in your chosen frameowrk. The subsections below outline integrations and their current
 status.
 
+You must also be careful to initialize all behaviours properly. See the `Awake` method of the 
+`AiBehaviourRunner` class or any of the `OnInit` method of any of the integrations discussed in 
+subsections below.
+
 When developing integrations please ensure you wrap your integration code with an approprate
 `#if [DEFINE_SYMBOL] ... #endif` statement since we want everyone to be able to compile the code
 even if they do not have the assets you use. If your chosen asset does not provide an appropriate

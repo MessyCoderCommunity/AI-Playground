@@ -8,14 +8,18 @@ namespace MessyCoderCommunity.AI.NodeCanvasIntegration
 
 	[Category("Messy AI/Debug")]
 	[Description("Log an output to the console,")]
-	public class Log : ActionTask<Transform> {
+	public class LogActionTask : ActionTask<Transform> {
 		[Tooltip("The AI behaviour to run.")]
-		public AiBehaviour aiBehaviour = null;
+		public AiBehaviour aiBehaviourTemplate = null;
 
 		private NCBlackboardBridge chalkboard;
+		private AiBehaviour aiBehaviour;
 
 		protected override string OnInit(){
-			chalkboard = new NCBlackboardBridge(blackboard); 
+			chalkboard = new NCBlackboardBridge(blackboard);
+
+			Debug.Assert(aiBehaviourTemplate != null, "You must provide a behaviour for the AiBehaviourRunner to run in " + agent.name);
+			aiBehaviour = ScriptableObject.Instantiate<AiBehaviour>(aiBehaviourTemplate);
 			aiBehaviour.Initialize(agent.gameObject, chalkboard);
 
 			// TODO: capture errors in the behaviour initalization and pass them on to NodeCanvas

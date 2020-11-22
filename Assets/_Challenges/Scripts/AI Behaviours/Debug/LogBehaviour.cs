@@ -17,43 +17,60 @@ namespace MessyCoderCommunity.AI
 
         private Regex variableRegex;
 
+        private GameObject agent;
+
         public override void Initialize(GameObject agent, IChalkboard chalkboard)
         {
             base.Initialize(agent, chalkboard);
+            this.agent = agent;
 
             variableRegex = new Regex(@"\{([^}]*)\}", RegexOptions.Compiled);
         }
 
         public override void Tick(IChalkboard chalkboard)
         {
-            string expandedMessage = message;
+            Debug.Log(ReplaceVariables(chalkboard, message));
+        }
+
+        private string ReplaceVariables(IChalkboard chalkboard, string expandedMessage)
+        {
             MatchCollection matches = variableRegex.Matches(expandedMessage);
-            for (int i = 0; i < matches.Count; i ++)
+            for (int i = 0; i < matches.Count; i++)
             {
                 string token = matches[i].Groups[0].Value;
                 int index = matches[i].Groups[0].Index;
                 string variableName = matches[i].Groups[1].Value;
+                string stringValue;
 
-                UnityEngine.Object unityValue = chalkboard.GetUnity<UnityEngine.Object>(variableName);
-                if (unityValue != null)
+                if (variableName == "agent")
                 {
-                    expandedMessage = expandedMessage.Remove(index, token.Length).Insert(index, unityValue.ToString());
-                } else
+                    stringValue = agent.name;
+                }
+                else
                 {
-                    System.Object systemValue = chalkboard.GetSystem<System.Object>(variableName);
-                    if (systemValue != null)
+                    UnityEngine.Object unityValue = chalkboard.GetUnity<UnityEngine.Object>(variableName);
+                    if (unityValue != null)
                     {
-                        expandedMessage = expandedMessage.Remove(index, token.Length).Insert(index, systemValue.ToString());
-                    } else
+                        stringValue = unityValue.ToString();
+                    }
+                    else
                     {
-                        expandedMessage = expandedMessage.Remove(index, token.Length).Insert(index,
-                            "[Missing or unrecognized type for variable " + token + "]");
+                        System.Object systemValue = chalkboard.GetSystem<System.Object>(variableName);
+                        if (systemValue != null)
+                        {
+                            stringValue = systemValue.ToString();
+                        }
+                        else
+                        {
+                            stringValue = "[Missing or unrecognized type for variable " + token + "]";
+                        }
                     }
                 }
-                
+
+                expandedMessage = expandedMessage.Remove(index, token.Length).Insert(index, stringValue);
             }
 
-            Debug.Log(expandedMessage);
+            return expandedMessage;
         }
     }
 }
