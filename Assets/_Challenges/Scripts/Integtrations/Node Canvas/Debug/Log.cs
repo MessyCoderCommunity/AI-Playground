@@ -16,8 +16,9 @@ namespace MessyCoderCommunity.AI.NodeCanvasIntegration
 
 		protected override string OnInit(){
 			chalkboard = new NCBlackboardBridge(blackboard); 
-			chalkboard = new NCBlackboardBridge(this.ownerSystemBlackboard);
-			// TODO: capture errors in the behavioud initalization and pass them on to NodeCanvas
+			aiBehaviour.Initialize(agent, chalkboard);
+
+			// TODO: capture errors in the behaviour initalization and pass them on to NodeCanvas
 			return null;
 		}
 
