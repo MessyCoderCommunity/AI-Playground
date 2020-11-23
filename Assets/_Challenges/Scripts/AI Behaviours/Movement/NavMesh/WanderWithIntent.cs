@@ -45,6 +45,8 @@ namespace MessyCoderCommunity.AI.NavMeshMovement
 
         public override void Tick(Chalkboard chalkboard)
         {
+            if (!IsTimeToUpdate) return;
+
             NavMeshAgent agent = chalkboard.GetUnity<NavMeshAgent>("agent".GetHashCode());
             if (agent == null)
             {

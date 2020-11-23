@@ -16,6 +16,8 @@ namespace MessyCoderCommunity.AI
 
         public override void Tick(Chalkboard chalkboard)
         {
+            if (!IsTimeToUpdate) return;
+
             GameObject agent = chalkboard.GetUnity<GameObject>("agent".GetHashCode());
             Debug.Log(agent.name + " says " + message);
         }

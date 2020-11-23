@@ -12,10 +12,6 @@ namespace MessyCoderCommunity.AI
         [SerializeField, Tooltip("The AI behaviour to run.")]
         AiBehaviour aiBehaviour = null;
 
-        [SerializeField, Tooltip("The tick frequency in seconds.")]
-        float tickFrequency = 0.25f;
-
-        private float nextTickTime = 0;
         private UnityEngine.Object m_Agent;
         private Chalkboard chalkboard;
 
@@ -50,11 +46,7 @@ namespace MessyCoderCommunity.AI
         // Update is called once per frame
         void Update()
         {
-            if (Time.time > nextTickTime)
-            {
-                aiBehaviour.Tick(chalkboard);
-                nextTickTime = Time.time + tickFrequency;
-            }
+            aiBehaviour.Tick(chalkboard);
         }
 
         private void OnDrawGizmosSelected()

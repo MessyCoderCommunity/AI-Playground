@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851273af4390dd2489ac171d53463278, type: 3}
   m_Name: Wander with Intent - AI Behaviour
   m_EditorClassIdentifier: 
-  newDestinationFrequency: 3
+  tickFrequency: 5
+  minimumReachDistance: 0.25
+  minDistanceOfRandomPathChange: 10
+  maxDistanceOfRandomPathChange: 20
+  minAngleOfRandomPathChange: -30
+  maxAngleOfRandomPathChange: 30
+  maxRange: 100
