@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810c4f1449c78ea41a5906543199052a, type: 3}
   m_Name: Detect Interactables Behaviour
   m_EditorClassIdentifier: 
+  tickFrequency: 0.25
   radius: 15
   layerMask:
     serializedVersion: 2
@@ -20,3 +21,4 @@ MonoBehaviour:
     type: 2}
   interactablesBehaviour: {fileID: 11400000, guid: 111908981d0ef16469fd7231bf1ba883,
     type: 2}
+  interactablesListName: interactables

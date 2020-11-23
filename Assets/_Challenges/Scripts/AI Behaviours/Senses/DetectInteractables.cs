@@ -38,6 +38,8 @@ namespace MessyCoderCommunity.AI.Senses
         }
         public override void Tick(Chalkboard chalkboard)
         {
+            if (!IsTimeToUpdate) return;
+
             base.Tick(chalkboard);
             Transform t = chalkboard.GetUnity<Transform>("agent".GetHashCode());
 
