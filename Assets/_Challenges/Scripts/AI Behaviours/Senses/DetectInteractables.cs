@@ -21,21 +21,23 @@ namespace MessyCoderCommunity.AI.Senses
         AiBehaviour interactablesBehaviour = null;
 
         [Header("Ouputs")]
-        [SerializeField, Tooltip("The name of the blackboard variable in which to store the list of interactables detected.")]
+        [SerializeField, Tooltip("The name of the chalkboard variable in which to store the list of interactables detected.")]
         string interactablesListName = "interactables";
-        private int interactablesListHash;
+        [SerializeField, Tooltip("The name of the chalkboard variable in which to store the chosen interactable for further actions. " +
+            "If null no interactable will be stored.")]
+        private string chosenInteractable = "interactable";
+
 
         public override void Initialize(GameObject agent, Chalkboard chalkboard)
         {
             base.Initialize(agent, chalkboard);
             
-            interactablesListHash = interactablesListName.GetHashCode();
-
             chalkboard.Add("NavMeshAgent", agent.GetComponent<NavMeshAgent>());
             noInteractablesBehaviour.Initialize(agent.gameObject, chalkboard);
 
             interactablesBehaviour.Initialize(agent.gameObject, chalkboard);
         }
+
         public override void Tick(Chalkboard chalkboard)
         {
             base.Tick(chalkboard);
@@ -65,7 +67,13 @@ namespace MessyCoderCommunity.AI.Senses
             }
             else
             {
-                Debug.Log(t.name + " detected " + chalkboard.GetSystem<List<Interactable>>(interactablesListHash).Count + " Colliders");
+                Vector3 pos = detectedInteractables[0].GetInteractionPosition();
+                chalkboard.Add(chosenInteractable, detectedInteractables[0]);
+
+                if (noInteractablesBehaviour)
+                {
+                    interactablesBehaviour.Tick(chalkboard);
+                }
             }
         }
     }

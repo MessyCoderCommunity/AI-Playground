@@ -307,42 +307,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7634098995905233197, guid: 3f10abd609b2f5d4ea6a6702b841bbd0,
+        type: 3}
+      propertyPath: aiBehaviour
+      value: 
+      objectReference: {fileID: 11400000, guid: 111908981d0ef16469fd7231bf1ba883,
+        type: 2}
+    - target: {fileID: 7634098995905233197, guid: 3f10abd609b2f5d4ea6a6702b841bbd0,
+        type: 3}
+      propertyPath: aiBehaviourTemplate
+      value: 
+      objectReference: {fileID: 11400000, guid: 111908981d0ef16469fd7231bf1ba883,
+        type: 2}
     - target: {fileID: 8722261560986105312, guid: 3f10abd609b2f5d4ea6a6702b841bbd0,
         type: 3}
       propertyPath: m_Name
-      value: Agent - Debug Log
+      value: Blue Agent - Debug Log
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f10abd609b2f5d4ea6a6702b841bbd0, type: 3}
---- !u!1 &1788582268 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8722261560986105312, guid: 3f10abd609b2f5d4ea6a6702b841bbd0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1788582267}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1788582269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788582268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bcc301286cd1e1479f51743dbd82d1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aiBehaviour: {fileID: 11400000, guid: 111908981d0ef16469fd7231bf1ba883, type: 2}
-  tickFrequency: 1
---- !u!114 &1788582274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788582268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 178a87e1df7a2d8419d83fc99632ef27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

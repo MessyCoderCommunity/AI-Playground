@@ -10,7 +10,7 @@ namespace MessyCoderCommunity.AI
     public class AiBehaviourRunner : MonoBehaviour
     {
         [SerializeField, Tooltip("The AI behaviour to run.")]
-        AiBehaviour aiBehaviour = null;
+        AiBehaviour aiBehaviourTemplate = null;
 
         [SerializeField, Tooltip("The tick frequency in seconds.")]
         float tickFrequency = 0.25f;
@@ -18,6 +18,7 @@ namespace MessyCoderCommunity.AI
         private float nextTickTime = 0;
         private UnityEngine.Object m_Agent;
         private Chalkboard chalkboard;
+        private AiBehaviour aiBehaviour;
 
         protected virtual UnityEngine.Object Agent
         {
@@ -32,7 +33,8 @@ namespace MessyCoderCommunity.AI
             chalkboard = GetComponent<Chalkboard>();
             Debug.Assert(chalkboard != null, "Cannot find a chalkboard fpr " + gameObject.name);
 
-            Debug.Assert(aiBehaviour != null, "You must provide a behaviour for the AiBehaviourRunner to run in " + gameObject.name);
+            Debug.Assert(aiBehaviourTemplate != null, "You must provide a behaviour for the AiBehaviourRunner to run in " + gameObject.name);
+            aiBehaviour = ScriptableObject.Instantiate<AiBehaviour>(aiBehaviourTemplate);
             if (aiBehaviour.AgentType == typeof(GameObject))
             {
                 m_Agent = gameObject;

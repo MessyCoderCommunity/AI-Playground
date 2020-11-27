@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e339f55e6d51ed43a7bfa75739eb92e, type: 3}
-  m_Name: Log AI Behaviour
+  m_Script: {fileID: 11500000, guid: 340183e145320f44baa376bace34ddcb, type: 3}
+  m_Name: Examine Interactable
   m_EditorClassIdentifier: 
-  message: '{agent} says "Hi!"'
+  interactable: interactable
+  moveToBehaviour: {fileID: 11400000, guid: bbd11e73874a0ca469a24bc951250f75, type: 2}

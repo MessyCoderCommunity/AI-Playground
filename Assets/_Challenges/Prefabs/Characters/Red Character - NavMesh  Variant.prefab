@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &2778213720161286195
+--- !u!114 &8227334393715099839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36,7 +36,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2460025838946458454
+--- !u!114 &6431745134269028542
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +115,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 164543084709115514, guid: f22323da2498c4d4988cd4d9164a228c, type: 3}
+    - {fileID: 2965593989129479803, guid: f22323da2498c4d4988cd4d9164a228c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f22323da2498c4d4988cd4d9164a228c, type: 3}
 --- !u!1 &7560889657904698596 stripped
 GameObject:

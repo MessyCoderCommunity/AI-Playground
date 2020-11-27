@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e339f55e6d51ed43a7bfa75739eb92e, type: 3}
-  m_Name: Log AI Behaviour
+  m_Script: {fileID: 11500000, guid: 57c612039fd20854dacf24c3d1de46d4, type: 3}
+  m_Name: Move To targetPosition
   m_EditorClassIdentifier: 
-  message: '{agent} says "Hi!"'
+  targetPositionVariable: targetPosition
