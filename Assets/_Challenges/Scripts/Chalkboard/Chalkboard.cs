@@ -5,92 +5,78 @@ using System;
 
 namespace MessyCoderCommunity.AI
 {
-    public class Chalkboard : MonoBehaviour
+    /// <summary>
+    /// A naive Chalkboard implementation for use in the test environment.
+    /// This is not a robust or performant implementation do not use in production.
+    /// </summary>
+    public class Chalkboard : MonoBehaviour, IChalkboard
     {
+        // REFACTOR: Now that we are storing in a Dictionary and we cannot use hash keys is there any value in using the Datum structs?
         [SerializeField]
-        List<ChalkboardUnityDatum> unityEntries = new List<ChalkboardUnityDatum>();
+        Dictionary<string, ChalkboardUnityDatum> unityEntries = new Dictionary<string, ChalkboardUnityDatum>();
         [SerializeField]
-        List<ChalkboardSystemDatum> systemEntries = new List<ChalkboardSystemDatum>();
+        Dictionary<string, ChalkboardSystemDatum> systemEntries = new Dictionary<string, ChalkboardSystemDatum>();
         [SerializeField]
-        List<ChalkboardVector3Datum> vector3Entries = new List<ChalkboardVector3Datum>();
-
-        public Vector3 GetVector3(int hash) 
+        Dictionary<string, ChalkboardVector3Datum> vector3Entries = new Dictionary<string, ChalkboardVector3Datum>();
+        
+        /// <summary>
+        /// Get a value from the chalkboard that is deriivable from System.Object 
+        /// </summary>
+        /// <typeparam name="T">The type of the object to retrieve</typeparam>
+        /// <param name="name">The name of the variable</param>
+        /// <returns>The value of the variable</returns>
+        public T GetSystem<T>(string name)
         {
-            for (int i = 0; i < vector3Entries.Count; i++)
+            ChalkboardSystemDatum datum;
+            if (systemEntries.TryGetValue(name, out datum))
             {
-                if (vector3Entries[i].hash == hash)
-                {
-                    return vector3Entries[i].value;
-                }
+                return (T)(object)datum.value;
+            } else
+            {
+                return default(T);
             }
-
-            return default(Vector3);
         }
 
         /// <summary>
         /// Get a value from the chalkboard that is deriivable from UnityEngine.Object 
         /// </summary>
         /// <typeparam name="T">The type of the object to retrieve (must be derived from UnityEngine.Object)</typeparam>
-        /// <param name="hash">The hash of the name of the variable</param>
-        /// <returns></returns>
-        public T GetUnity<T>(int hash) where T : UnityEngine.Object
+        /// <param name="name">The name of the variable</param>
+        /// <returns>The value of the variable</returns>
+        public T GetUnity<T>(string name) where T : UnityEngine.Object
         {
-            for (int i = 0; i < unityEntries.Count; i++)
+            ChalkboardUnityDatum datum;
+            if (unityEntries.TryGetValue(name, out datum))
             {
-                if (unityEntries[i].hash == hash)
+                return (T)(object)datum.value;
+            }
+            else
+            {
+                return default(T);
+            }
+        }
+
+        public void AddOrUpdate(string name, UnityEngine.Object value)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                if (unityEntries.ContainsKey(name))
                 {
-                    if (typeof(UnityEngine.Component).IsAssignableFrom(typeof(T)))
-                    {
-                        return ((UnityEngine.Component)unityEntries[i].value).GetComponent<T>();
-                    }
-
-                    return (T)unityEntries[i].value;
+                    unityEntries.Remove(name);
                 }
+                unityEntries.Add(name, new ChalkboardUnityDatum(name, value));
             }
-
-            return default(T);
         }
 
-        /// <summary>
-        /// Get a value from the chalkboard that is deriivable from System.Object 
-        /// </summary>
-        /// <typeparam name="T">The type of the object to retrieve</typeparam>
-        /// <param name="hash">The hash of the name of the variable</param>
-        /// <returns></returns>
-        public T GetSystem<T>(int hash)
+        public void AddOrUpdate(string name, System.Object value)
         {
-            for (int i = 0; i < systemEntries.Count; i++)
+            if (!string.IsNullOrEmpty(name))
             {
-                if (systemEntries[i].hash == hash)
+                if (systemEntries.ContainsKey(name))
                 {
-                    return (T)(object)systemEntries[i].value;
+                    systemEntries.Remove(name);
                 }
-            }
-
-            return default(T);
-        }
-
-        internal void Add(string name, Vector3 value)
-        {
-            if (!string.IsNullOrEmpty(name))
-            {
-                vector3Entries.Add(new ChalkboardVector3Datum(name, value));
-            }
-        }
-
-        internal void Add(string name, UnityEngine.Object value)
-        {
-            if (!string.IsNullOrEmpty(name))
-            {
-                unityEntries.Add(new ChalkboardUnityDatum(name, value));
-            }
-        }
-
-        internal void Add(string name, System.Object value)
-        {
-            if (!string.IsNullOrEmpty(name))
-            {
-                systemEntries.Add(new ChalkboardSystemDatum(name, value));
+                systemEntries.Add(name, new ChalkboardSystemDatum(name, value));
             }
         }
     }

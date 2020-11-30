@@ -23,31 +23,31 @@ namespace MessyCoderCommunity.AI.Senses
         [Header("Ouputs")]
         [SerializeField, Tooltip("The name of the chalkboard variable in which to store the list of interactables detected.")]
         string interactablesListName = "interactables";
-        [SerializeField, Tooltip("The name of the chalkboard variable in which to store the chosen interactable for further actions. " +
-            "If null no interactable will be stored.")]
-        private string chosenInteractable = "interactable";
+        [SerializeField, Tooltip("The name of the chalkboard variable in which to store the position of the chosen interactable. " +
+            "If null the position will not be stored.")]
+        private string chosenInteractablePositionName = "";
 
+        private Transform transform = null;
 
-        public override void Initialize(GameObject agent, Chalkboard chalkboard)
+        public override void Initialize(GameObject agent, IChalkboard chalkboard)
         {
             base.Initialize(agent, chalkboard);
-            
-            chalkboard.Add("NavMeshAgent", agent.GetComponent<NavMeshAgent>());
-            noInteractablesBehaviour.Initialize(agent.gameObject, chalkboard);
 
-            interactablesBehaviour.Initialize(agent.gameObject, chalkboard);
+            noInteractablesBehaviour.Initialize(agent, chalkboard);
+            interactablesBehaviour.Initialize(agent, chalkboard);
+
+            transform = agent.transform;
         }
 
-        public override void Tick(Chalkboard chalkboard)
+        public override void Tick(IChalkboard chalkboard)
         {
             base.Tick(chalkboard);
-            Transform t = chalkboard.GetUnity<Transform>("agent".GetHashCode());
 
             List<Interactable> detectedInteractables = new List<Interactable>();
-            Collider[] colliders = Physics.OverlapSphere(t.position, radius, layerMask);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, radius, layerMask);
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i].gameObject != t.gameObject)
+                if (colliders[i].gameObject != transform.gameObject)
                 {
                    Interactable interactable = colliders[i].GetComponentInParent<Interactable>();
                     if (interactable)
@@ -56,7 +56,7 @@ namespace MessyCoderCommunity.AI.Senses
                     }
                 }
             }
-            chalkboard.Add(interactablesListName, detectedInteractables);
+            chalkboard.AddOrUpdate(interactablesListName, detectedInteractables);
 
             if (detectedInteractables.Count == 0)
             {
@@ -68,12 +68,13 @@ namespace MessyCoderCommunity.AI.Senses
             else
             {
                 Vector3 pos = detectedInteractables[0].GetInteractionPosition();
-                chalkboard.Add(chosenInteractable, detectedInteractables[0]);
+                chalkboard.AddOrUpdate(chosenInteractablePositionName, pos);
 
-                if (noInteractablesBehaviour)
+                if (interactablesBehaviour)
                 {
                     interactablesBehaviour.Tick(chalkboard);
                 }
+                Debug.Log(transform.name + " detected " + chalkboard.GetSystem<List<Interactable>>(interactablesListName).Count + " Colliders");
             }
         }
     }

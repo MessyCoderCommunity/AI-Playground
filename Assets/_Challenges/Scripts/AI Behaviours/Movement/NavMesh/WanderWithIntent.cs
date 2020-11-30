@@ -33,26 +33,24 @@ namespace MessyCoderCommunity.AI.NavMeshMovement
 
         private Vector3 homePosition;
         private float sqrMagnitudeRange;
+        NavMeshAgent navMeshAgent = null;
 
 
-        public override void Initialize(GameObject agent, Chalkboard chalkboard)
+        public override void Initialize(GameObject agent, IChalkboard chalkboard)
         {
             base.Initialize(agent, chalkboard);
 
             homePosition = agent.transform.position;
             sqrMagnitudeRange = maxRange * maxRange;
+
+            navMeshAgent = agent.GetComponent<NavMeshAgent>();
+            Debug.Assert(navMeshAgent != null, "MoveTo behaviour requires a NavMeshAgent component on the agent.");
         }
 
-        public override void Tick(Chalkboard chalkboard)
-        {
-            NavMeshAgent agent = chalkboard.GetUnity<NavMeshAgent>("agent".GetHashCode());
-            if (agent == null)
-            {
-                agent = chalkboard.GetUnity<NavMeshAgent>("NavMeshAgent".GetHashCode());
-            }
-            
-            agent.SetDestination(GetValidWanderPosition(agent.transform, 0));
-            agent.isStopped = false;
+        public override void Tick(IChalkboard chalkboard)
+        {            
+            navMeshAgent.SetDestination(GetValidWanderPosition(navMeshAgent.transform, 0));
+            navMeshAgent.isStopped = false;
         }
 
         private Vector3 GetValidWanderPosition(Transform transform, int attemptCount)

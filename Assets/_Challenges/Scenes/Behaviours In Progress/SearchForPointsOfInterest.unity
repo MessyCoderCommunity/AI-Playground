@@ -610,6 +610,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable Seeker Blue Character
       objectReference: {fileID: 0}
+    - target: {fileID: 8722261560986105312, guid: 3f10abd609b2f5d4ea6a6702b841bbd0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f10abd609b2f5d4ea6a6702b841bbd0, type: 3}
 --- !u!1 &1246293311 stripped
@@ -732,6 +737,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Interactable Seeker Red Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739984518102333984, guid: f22323da2498c4d4988cd4d9164a228c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4478056640627982620, guid: f22323da2498c4d4988cd4d9164a228c,
         type: 3}

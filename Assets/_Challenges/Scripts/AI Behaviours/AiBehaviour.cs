@@ -7,6 +7,8 @@ namespace MessyCoderCommunity.AI
 {
     public class AiBehaviour : ScriptableObject
     {
+        private GameObject agent;
+
         /// <summary>
         /// Get the Type of the agent this refers to. For base `AiBehaviours` this
         /// is always `GameObject` but implementations of this class can be generic,
@@ -24,7 +26,10 @@ namespace MessyCoderCommunity.AI
         /// </summary>
         /// <param name="agent">The agent this behaviour belongs to.</param>
         /// <param name="chalkboard">The chalkboard for sharing variables between behaviours</param>
-        public virtual void Initialize(GameObject agent, Chalkboard chalkboard) { }
+        public virtual void Initialize(GameObject agent, IChalkboard chalkboard)
+        {
+            this.agent = agent;
+        }
 
         /// <summary>
         /// Tick is where the behaviour does it's work. In the curren implementation of
@@ -35,7 +40,7 @@ namespace MessyCoderCommunity.AI
         /// See issue #3
         /// </summary>
         /// <param name="chalkboard"></param>
-        public virtual void Tick(Chalkboard chalkboard) { }
+        public virtual void Tick(IChalkboard chalkboard) { }
 
         /// <summary>
         /// Called in editor whenever the agent executing this behaviour is selected.
