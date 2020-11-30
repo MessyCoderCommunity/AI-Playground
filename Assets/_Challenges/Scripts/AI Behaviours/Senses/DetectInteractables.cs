@@ -38,6 +38,7 @@ namespace MessyCoderCommunity.AI.Senses
 
             transform = agent.transform;
         }
+
         public override void Tick(IChalkboard chalkboard)
         {
             base.Tick(chalkboard);

@@ -11,8 +11,8 @@ namespace MessyCoderCommunity.AI.NavMeshMovement
     [CreateAssetMenu(fileName = "Move To", menuName = "Messy AI/Movement/Nav Mesh/Move To")]
     public class MoveTo : GenericAiBehaviour<NavMeshAgent>
     {
-        [SerializeField, Tooltip("The name of a Vector3 variable that holds the position to be moved to.")]
-        string targetPositionVariable = "targetPosition";
+        [Tooltip("The name of a Vector3 variable that holds the position to be moved to.")]
+        public string targetPositionVariable = "targetPosition";
 
         Vector3 currentTargetPosition = Vector3.zero;
         NavMeshAgent navMeshAgent = null;

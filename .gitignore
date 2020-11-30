@@ -95,7 +95,7 @@ Assets/*
 !Assets/_Challenges
 !Assets/_NodeCanvasIntegration
 !Assets/_Terrain*
-Bin
+[Bb]in
 
 Assets/_TerrainAutoUpgrade
 Assets/_TerrainAutoUpgrade.meta

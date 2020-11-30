@@ -96,6 +96,3 @@ define symbol please document the one you are using below.
 Node Canvas is an excellent behaviour tree asset. 
 
 Define symbol: `NODE_CANVAS_PRESENT` (must be manually set, Node Canvas does not provide this).
-
-
-
